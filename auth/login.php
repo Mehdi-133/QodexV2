@@ -1,7 +1,6 @@
 <?php
 require_once "../config/database.php";
 
-
 $error_email = "";
 $error_password = "";
 
