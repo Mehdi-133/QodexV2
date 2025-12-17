@@ -6,7 +6,7 @@ $error_email = "";
 $error_password = "";
 $error_role = "";
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['register'])) {
     $username = $_POST['username'];
     $role = $_POST['role'];
     $email = $_POST['email'];
@@ -123,7 +123,7 @@ if (isset($_POST['submit'])) {
 
                 <button
                     type="submit"
-                    name="submit"
+                    name="register"
                     class="w-full bg-sky-800 text-white py-2 rounded-lg font-semibold hover:bg-white hover:text-sky-800 border border-sky-800 transition-all">
                     Sign Up
                 </button>

@@ -1,4 +1,12 @@
 <?php
+session_start();
+
+
+if (isset($_SESSION['user_id']) && isset($_SESSION['logged_in'])) {
+  header("Location: /QodexV2/enseignant/dashboard.php");
+  exit;
+}
+
 require_once "../config/database.php";
 
 $error_email = "";
@@ -17,14 +25,20 @@ if (isset($_POST['submit'])) {
   }
 
   if (empty($error_email) && empty($error_password)) {
-    $sql = "SELECT password_hash FROM user WHERE email = '$email'";
+
+    $sql = "SELECT id, password_hash FROM user WHERE email = '$email'";
     $result = mysqli_query($conn, $sql);
-    
+
     if (mysqli_num_rows($result) > 0) {
       $row = mysqli_fetch_assoc($result);
 
       if (password_verify($password, $row['password_hash'])) {
-        header("Location:/QodexV2/enseignant/dashboard.php");
+
+        $_SESSION['user_id'] = $row['id'];
+        $_SESSION['email'] = $email;
+        $_SESSION['logged_in'] = true;
+
+        header("Location: /QodexV2/enseignant/dashboard.php");
         exit;
       } else {
         $error_password = "Wrong password";
@@ -66,7 +80,7 @@ if (isset($_POST['submit'])) {
 
         <div>
           <?php if (!empty($error_email)): ?>
-            <p class="text-red-500 text-sm mb-1"><?php echo $error_email; ?></p>
+            <p class="text-red-500 text-sm mb-1"><?php echo htmlspecialchars($error_email); ?></p>
           <?php endif; ?>
           <input
             type="email"
@@ -78,7 +92,7 @@ if (isset($_POST['submit'])) {
 
         <div>
           <?php if (!empty($error_password)): ?>
-            <p class="text-red-500 text-sm mb-1"><?php echo $error_password; ?></p>
+            <p class="text-red-500 text-sm mb-1"><?php echo htmlspecialchars($error_password); ?></p>
           <?php endif; ?>
           <input
             type="password"
