@@ -26,7 +26,7 @@ if (isset($_POST['submit'])) {
 
   if (empty($error_email) && empty($error_password)) {
 
-    $sql = "SELECT id, password_hash FROM user WHERE email = '$email'";
+    $sql = "SELECT id, password_hash, nom, role FROM user WHERE email = '$email'";
     $result = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($result) > 0) {
@@ -36,9 +36,15 @@ if (isset($_POST['submit'])) {
 
         $_SESSION['user_id'] = $row['id'];
         $_SESSION['email'] = $email;
+        $_SESSION['nom'] = $row['nom'];
+        $_SESSION['role'] = $row['role'];
         $_SESSION['logged_in'] = true;
 
-        header("Location: /QodexV2/enseignant/dashboard.php");
+        if ($row['role'] == 'enseignant') {
+          header("Location: /QodexV2/enseignant/dashboard.php");
+        } else {
+          header("Location: /QodexV2/etudiant/dashboard.php");
+        }
         exit;
       } else {
         $error_password = "Wrong password";

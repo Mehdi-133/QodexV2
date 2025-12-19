@@ -11,4 +11,4 @@ session_destroy();
 
 header("Location: /QodexV2/auth/login.php");
 exit;
-?>
+?>  

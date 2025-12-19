@@ -9,6 +9,7 @@ CREATE TABLE user (
     role ENUM('enseignant' ,'etudiant ' ) NOT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     deleted_at DATETIME 
+    
 );
 
 --@block 
@@ -71,16 +72,18 @@ CREATE TABLE result (
 
 INSERT INTO user (nom, email, password_hash, role, created_at)
 VALUES
-('Alice Dupont', 'alice@school.com', 'hash1', 'enseignant', NOW()),
-('Bernard Leroy', 'bernard@school.com', 'hash2', 'enseignant', NOW()),
-('Claire Martin', 'claire@school.com', 'hash3', 'enseignant', NOW()),
-('David Étudiant', 'david@student.com', 'hash4', 'etudiant', NOW()),
-('Emma Étudiante', 'emma@student.com', 'hash5', 'etudiant', NOW()),
-('Farid Étudiant', 'farid@student.com', 'hash6', 'etudiant', NOW()),
-('Gina Étudiante', 'gina@student.com', 'hash7', 'etudiant', NOW()),
-('Hugo Étudiant', 'hugo@student.com', 'hash8', 'etudiant', NOW()),
-('Ines Étudiante', 'ines@student.com', 'hash9', 'etudiant', NOW()),
-('Jack Étudiant', 'jack@student.com', 'hash10', 'etudiant', NOW());
+('Alice Dupont', 'alice@school.com', SHA2('code1', 256), 'enseignant', NOW()),
+('Bernard Leroy', 'bernard@school.com', SHA2('code2', 256), 'enseignant', NOW()),
+('Claire Martin', 'claire@school.com', SHA2('code3', 256), 'enseignant', NOW()),
+('David Étudiant', 'david@student.com',  SHA2('code3', 256) , 'etudiant', NOW()),
+('Emma Étudiante', 'emma@student.com',   SHA2('code3', 256), 'etudiant', NOW()),
+('Farid Étudiant', 'farid@student.com',  SHA2('code3', 256), 'etudiant', NOW()),
+('Gina Étudiante', 'gina@student.com',  SHA2('code3', 256), 'etudiant', NOW()),
+('Hugo Étudiant', 'hugo@student.com',  SHA2('code3', 256), 'etudiant', NOW()),
+('Ines Étudiante', 'ines@student.com',  SHA2('code3', 256), 'etudiant', NOW()),
+('Jack Étudiant', 'jack@student.com',  SHA2('code3', 256), 'etudiant', NOW());
+
+
 
 
 --@block 
