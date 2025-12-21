@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['logged_in'])) {
     header("Location: /QodexV2/auth/login.php");
     exit;
@@ -11,7 +12,7 @@ require_once('../config/database.php');
 $error = '';
 $success = '';
 
-// Get category info if id is set
+
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
     $sql = "SELECT * FROM category WHERE id = ?";
@@ -22,7 +23,7 @@ if (isset($_GET['id'])) {
     $category = $result->fetch_assoc();
 }
 
-// Update category
+
 if (isset($_POST['update'])) {
     $id          = intval($_POST['id']);
     $nom         = trim($_POST['nom']);
